@@ -1,0 +1,9 @@
+{% extends "store/base.html" %}
+{% block content %}
+    <h1>This is the updated index page for store!</h1>
+    {% for product in products %}
+        <h4>Name: {{ product.name }}</h4>
+        <p>Price: {{ product.price }}</p>
+    {% endfor %}
+{% endblock content %}
+

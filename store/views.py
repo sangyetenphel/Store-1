@@ -1,6 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
+products = [
+    {
+        'name': 'Electric toothbrush',
+        'price': '$30'
+    },
+    {
+        'name': 'Bamboo toothbrush',
+        'price': '$20'
+    },
+]
 
 # Create your views here.
-def index(request):
-    return HttpResponse('<H1>The index page of my store!</H1>')
+def home(request):
+    context = {
+        'title': 'Home',
+        'products': products
+    }
+    return render(request, 'store/home.html', context)
