@@ -4,6 +4,7 @@
     {% for product in products %}
         <h4>Name: {{ product.name }}</h4>
         <p>Price: {{ product.price }}</p>
+        <p>Date added: {{ product.date_added|date:"F d, Y" }}</p>
     {% endfor %}
 {% endblock content %}
 
