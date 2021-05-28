@@ -1,11 +1,331 @@
 {% extends "store/base.html" %}
+{% load static %}
+
 {% block content %}
-    <h1>This is the updated index page for store!</h1>
+    <!-- <h1>This is the updated index page for store!</h1>
     {% for product in products %}
         <img src="{{ product.image.url }}" alt="">
         <h4>Name: {{ product.name }}</h4>
+        <a href="{% url 'review-product' product.id %}">{{ product.review_set.count }} review{{ product.review_set.count|pluralize }}</a>
         <p>Price: {{ product.price }}</p>
         <p>Date added: {{ product.date_added|date:"F d, Y" }}</p>
-    {% endfor %}
+    {% endfor %} -->
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <h1>Lorem ipsum dolor sit, <br> suscipit odit. Molestit accusantium.</h1>
+                <p>Lorem ipsum dolor sit amet consectetur adipisictotam eum,
+                <br> alias, eius necessitatibus eligendiatum pariatur cumque? Veniam, nulla.</p>
+                <a href="" class="btn">Explore Now &#8594;</a>
+            </div>
+            <div class="col-2">
+                <img src="{% static 'store/images/image1.png' %}" alt="">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Featured Categories -->
+    <div class="categories">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <img src="{% static 'store/images/category-1.jpg' %}" alt="">
+                </div>
+                <div class="col-3">
+                    <img src="{% static 'store/images/category-2.jpg' %}" alt="">
+                </div>
+                <div class="col-3">
+                    <img src="{% static 'store/images/category-3.jpg' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Products -->
+    <div class="small-container">
+        <h2 class="title">Featured Products</h2>
+        <div class="row">
+            <div class="col-4">
+                <img src="{% static 'store/images/product-1.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-2.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-3.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-4.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p>$50</p>
+            </div>
+        </div>
+
+        <!-- Latest Products -->
+        <h2 class="title">Latest Products</h2>
+        <div class="row">
+            <div class="col-4">
+                <img src="{% static 'store/images/product-1.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-2.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-3.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-4.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p>$50</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <img src="{% static 'store/images/product-1.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-2.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-3.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+                <p>$50</p>
+            </div>
+            <div class="col-4">
+                <img src="{% static 'store/images/product-4.jpg' %}" alt="">
+                <h4>Rd Printed T-Shirt</h4>
+                <div class="rating">
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p>$50</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Offer -->
+    <div class="offer">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="{% static 'store/images/exclusive.png' %}" class="offer-img" alt="">
+                </div>
+                <div class="col-2">
+                    <p>Exclusively Available on RedStore</p>
+                    <h1>Smart Brand 4</h1>
+                    <small>This is Lorem ipsum dolor sit amet consectetur inventore eaque, voluptates perspiciatis q</small>
+                    <a href="" class="btn">Buy Now &#8594;</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="testimonial">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
+                    <div class="rating">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <img src="{% static 'store/images/user-1.png' %}" alt="">
+                    <h3>Sean Parker</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
+                    <div class="rating">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <img src="{% static 'store/images/user-2.png' %}" alt="">
+                    <h3>Sean Parker</h3>
+                </div>
+                <div class="col-3">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
+                    <div class="rating">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <img src="{% static 'store/images/user-3.png' %}" alt="">
+                    <h3>Sean Parker</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Brands -->
+    <div class="brands">
+        <div class="small-container">
+            <div class="row">
+                <div class="col-5">
+                    <img src="{% static 'store/images/logo-godrej.png' %}" alt="">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'store/images/logo-oppo.png' %}" alt="">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'store/images/logo-coca-cola.png' %}" alt="">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'store/images/logo-paypal.png' %}" alt="">
+                </div>
+                <div class="col-5">
+                    <img src="{% static 'store/images/logo-philips.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Download Our App</h3>
+                    <p>Download App for Android and ios mobile phone.</p>
+                    <div class="app-logo">
+                        <img src="{% static 'store/images/play-store.png' %}" alt="">
+                        <img src="{% static 'store/images/app-store.png' %}" alt="">
+                    </div>
+                </div>
+                <div class="footer-col-2">
+                    <img src="{% static 'store/images/logo-white.png' %}" alt="">
+                    <p>Download App for Android and ios mobile phone.</p>
+                </div>
+                <div class="footer-col-3">
+                    <h3>Download Our App</h3>
+                    <ul>
+                        <li>Return Policy</li>
+                        <li>Return Policy</li>
+                        <li>Return Policy</li>
+                        <li>Return Policy</li>
+                    </ul>
+                </div>
+                <div class="footer-col-4">
+                    <h3>Follow us</h3>
+                    <ul>
+                        <li>Facebook</li>
+                        <li>Facebook</li>
+                        <li>Facebook</li>
+                        <li>Facebook</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <p class="copyright">Copyright 2020 - Easy Tutorials</p>
+        </div>
+    </footer>
 {% endblock content %}
 

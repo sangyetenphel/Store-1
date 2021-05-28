@@ -1,0 +1,18 @@
+{% extends "store/base.html" %}
+{% block content %}
+    <img src="{{ object.image.url }}" alt="">
+    <h4>Name: {{ object.name }}</h4>
+    <p>Price: {{ object.price }}</p>
+    <p>Date added: {{ object.date_added|date:"F d, Y" }}</p>
+    <a href="{% url 'review-new' object.id %}">Write a review</a>
+    {% for review in reviews %}
+        <p>{{ review }} - {{ review.reviewer }} {{ review.date_added }}</p>
+        {% if review.reviewer == user %}
+            <a class="btn btn-secondary" href="{% url 'review-update' review.id %}">Update</a>
+            <a class="btn btn-danger" href="{% url 'review-delete' review.id %}">Delete</a>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}
+
+
+

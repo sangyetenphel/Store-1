@@ -1,5 +1,8 @@
 from django.db import models
+from django.db.models.base import Model
 from django.utils import timezone
+from django.contrib.auth.models import User
+from django.urls import reverse
 from PIL import Image
 
 # Create your models here.
@@ -21,3 +24,16 @@ class Product(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+class Review(models.Model):
+    reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    review = models.TextField()
+    date_added = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.review
+
+    def get_absolute_url(self):
+        return reverse('review-product', kwargs={'pk': self.product.id})
