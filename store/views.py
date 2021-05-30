@@ -67,3 +67,12 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         else:
             return False 
+
+
+
+def products(request):
+    return render(request, 'store/products.html')
+
+
+def cart(request):
+    return render(request, 'store/cart.html')
