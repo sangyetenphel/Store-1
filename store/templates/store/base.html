@@ -22,12 +22,17 @@
         </div>
         <nav>
           <ul id="MenuItems">
-            <li><a href="">Products</a></li>
             <li><a href="">About</a></li>
+            <li><a href="">Products</a></li>
             <li><a href="">Contact</a></li>
             {% if user.is_authenticated %}
-              <li><a href="{% url 'profile' %}">Account</a></li>
-              <li><a href="{% url 'logout' %}">Logout</a></li>
+              <li><a href="{% url 'profile' %}">Hi, {{ user|title }} <i class="fa fa-angle-down"></i></a>
+                <ul>
+                  <li class="logout"><a href="{% url 'profile' %}">Profile</a></li>
+                  <li class="logout"><a href="{% url 'logout' %}">Log Out</a></li>
+                </ul>
+              </li>
+              <li class="drop-logout"><a href="{% url 'logout' %}">Log Out</a></li>
             {% else %}
               <li><a href="{% url 'login' %}">Login</a></li>
             {% endif %}

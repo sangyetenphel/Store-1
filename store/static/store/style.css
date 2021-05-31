@@ -6,13 +6,20 @@
     font-family: 'Comic Sans MS';
 }
 
+.logo {
+    top: 0;
+    left: 0;
+    position: absolute;
+}
+
 .logo img {
-    width: 200px;
+    width: 220px;
 }
 
 .navbar {
     display: flex;
     align-items: center;
+    padding-top: 20px;
 }
 
 nav {
@@ -28,10 +35,40 @@ nav ul {
 nav ul li {
     display: inline-block;
     margin-right: 20px;
+    position: relative;
 }
 
 nav ul li a:hover {
     color: black;
+}
+
+nav ul li ul {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    display: block;
+    width: 100px;
+    transition: 0.5s;
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 9%);
+    
+}
+
+nav ul li:hover ul {
+    visibility: visible;
+    opacity: 1;
+    color: white;
+}
+
+nav ul li ul li {
+    float: left;
+    padding: 10px 5px;
+}
+
+.drop-logout {
+    display: none;
 }
 
 .cart {
@@ -555,6 +592,11 @@ form a {
 @media only screen and (max-width: 800px) {
 
     /* Menu */
+    nav {
+        height: 100%;
+        background: grey;
+    } 
+
     nav ul {
         position: absolute;
         top: 70px;
@@ -563,6 +605,7 @@ form a {
         width: 100%;
         overflow: hidden;
         transition: max-height 0.5s;
+        height: 600px;
     }
 
     nav ul li {
@@ -572,8 +615,33 @@ form a {
         margin-bottom: 10px;
     }
 
+    nav ul li ul {
+        width: 130px;
+        left: 85%;
+        height: 45px;
+    }
+
+    nav ul li ul li {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        padding-top: 5px;
+    }
+
     nav ul li a {
         color: #fff;
+    }
+
+    nav ul li ul {
+        display: none;
+    }
+
+    .fa-angle-down {
+        display: none;
+    }
+
+    .drop-logout {
+        display: block;
     }
 
     .menu-icon {
