@@ -13,56 +13,22 @@
                 <option value="">Sort by sale</option>
             </select>
         </div>
-        <h2 class="title">Featured Products</h2>
+        <!-- <h2 class="title">Featured Products</h2> -->
         <div class="row">
-            <div class="col-4">
-                <img src="{% static 'store/images/product-1.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
+            {% for product in products %}
+                <div class="col-4">
+                    <img src="{% static 'store/images/product-1.jpg' %}" alt="">
+                    <h4>Rd Printed T-Shirt</h4>
+                    <div class="rating">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="far fa-star" aria-hidden="true"></i>
+                    </div>
+                    <p>$50</p>
                 </div>
-                <p>$50</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'store/images/product-2.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                </div>
-                <p>$50</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'store/images/product-3.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                </div>
-                <p>$50</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'store/images/product-4.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <p>$50</p>
-            </div>
+            {% endfor %}
         </div>
 
         <div class="page-btn">

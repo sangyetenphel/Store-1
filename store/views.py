@@ -68,11 +68,12 @@ class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         else:
             return False 
 
-
-
 def products(request):
-    return render(request, 'store/products.html')
-
+    context = {
+        'products': Product.objects.all()
+    }
+    
+    return render(request, 'store/products.html', context)
 
 def cart(request):
     return render(request, 'store/cart.html')
