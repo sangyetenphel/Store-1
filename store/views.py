@@ -10,7 +10,8 @@ from .models import Product, Review
 def home(request):
     context = {
         'title': 'Home',
-        'products': Product.objects.all()
+        'products': Product.objects.all(),
+        'latest_products': Product.objects.order_by('-date_added')[:4]
     }
     return render(request, 'store/home.html', context)
 

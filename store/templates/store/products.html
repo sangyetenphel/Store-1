@@ -17,16 +17,16 @@
         <div class="row">
             {% for product in products %}
                 <div class="col-4">
-                    <img src="{% static 'store/images/product-1.jpg' %}" alt="">
-                    <h4>Rd Printed T-Shirt</h4>
+                    <img src="{{ product.image.url }}" alt="">
+                    <h4>{{ product.name }}</h4>
                     <div class="rating">
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>
                     </div>
-                    <p>$50</p>
+                    <p>${{ product.price }}</p>
                 </div>
             {% endfor %}
         </div>
