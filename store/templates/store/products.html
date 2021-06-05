@@ -16,7 +16,7 @@
         <!-- <h2 class="title">Featured Products</h2> -->
         <div class="row">
             {% for product in products %}
-                <div class="col-4">
+            <a href="{% url 'product' product.id %}" class="col-4">
                     <img src="{{ product.image.url }}" alt="">
                     <h4>{{ product.name }}</h4>
                     <div class="rating">
@@ -27,7 +27,7 @@
                             <i class="far fa-star" aria-hidden="true"></i>
                     </div>
                     <p>${{ product.price }}</p>
-                </div>
+            </a>
             {% endfor %}
         </div>
 

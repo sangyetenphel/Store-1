@@ -425,6 +425,93 @@ input:focus {
     cursor: pointer;
 }
 
+.customer-reviews {
+    margin-top: 10px;
+}
+
+
+.review-head {
+    padding-top: 10px;
+}
+
+.review-body {
+    padding-top: 10px;
+}
+
+.review-footer {
+    padding-top: 10px;
+    color: grey;
+    margin-bottom: 50px;
+}
+
+/*-- review form --*/
+
+.review-form textarea.input {
+    height: 90px;
+}
+
+.review-form textarea {
+    width: 100%;
+}
+
+.review-form .btn {
+    background: #412B15;
+    color: #fff;
+}
+
+.review-form .btn:hover {
+    background: #6f4e37;
+    color: #fff;
+}
+
+.review-form .input-rating .stars {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.review-form .input-rating .stars input[type="radio"] {
+    display: none;
+}
+
+.review-form .input-rating .stars>label {
+    float: right;
+    cursor: pointer;
+    padding: 0px 3px;
+    margin: 0px;
+    -webkit-transition: 0.3s all;
+    transition: 0.3s all;
+}
+
+.review-form .input-rating .stars>label:hover, .review-form .input-rating .stars>label:hover~label {
+    -webkit-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    transform: scale(1.5);
+}
+
+.review-form .input-rating .stars>label:before {
+    content: "\f005";
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-weight: normal;
+    color: #DADADA;
+    font-size: 14px;
+    -webkit-transition: 0.3s all;
+    transition: 0.3s all;
+    /* font-weight: 200; */
+}
+
+.review-form .input-rating .stars>label:hover:before, .review-form .input-rating .stars>label:hover~label:before {
+    content: "\f005";
+    color: #FFB656;
+    font-weight: 900;
+}
+
+.review-form .input-rating .stars>input:checked label:before, .review-form .input-rating .stars>input:checked~label:before {
+    content: "\f005";
+    color: #FFB656;
+    font-weight: 900;
+}
+
 
 /* Cart Items Detail */
 .cart-page {

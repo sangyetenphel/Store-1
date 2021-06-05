@@ -76,5 +76,13 @@ def products(request):
     
     return render(request, 'store/products.html', context)
 
+
+def product(request, id):
+    product = Product.objects.get(pk=id)
+    context = {
+        'product': product
+        }
+    return render(request, 'store/product.html', context)
+
 def cart(request):
     return render(request, 'store/cart.html')

@@ -1,10 +1,11 @@
 from django.db import models
-from django.db.models.base import Model
+from django.db.models.base import Model, ModelState
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from PIL import Image
+from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 class Product(models.Model):
@@ -13,7 +14,7 @@ class Product(models.Model):
     keyword = models.CharField(max_length=255)
     date_added = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='products')
-    description = models.TextField()
+    description = RichTextUploadingField()
     # amount = models.IntegerField()
     # min_amount = models.IntegerField()
     # status = models.BooleanField()
@@ -54,6 +55,7 @@ class Review(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     review = models.TextField()
+    rating = models.IntegerField(default=1)
     date_added = models.DateTimeField(auto_now=True)
 
     def __str__(self):
