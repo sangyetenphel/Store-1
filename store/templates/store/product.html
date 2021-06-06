@@ -28,7 +28,7 @@
                     <option value="">XXL</option>
                     <option value="">XXL</option>
                 </select>
-                <input type="number" value="1">
+                <input type="number" value="1" min="1">
                 <a href="" class="btn">Add To Cart</a>
 
                 <h3>Product Details <i class="fa fa-indent"></i></h3>
@@ -43,65 +43,46 @@
     <div class="small-container">
         <div class="row">
             <div class="col-2">
-                <div class="customer-reviews">
-                    <!-- <p><i class="fas fa-user"></i> John</p> -->
-                    <div class="rating">
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>    
+                {% for review in reviews %}
+                    <div class="customer-reviews">
+                        <!-- <p><i class="fas fa-user"></i> John</p> -->
+                        <div class="rating">
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            <i class="far fa-star" aria-hidden="true"></i>    
+                        </div>
+                        <div class="review-head">
+                            <b>{{ review.subject }}</b> 
+                        </div>
+                        
+                        <div class="review-body">
+                            <p>{{ review.review }}</p>
+                        </div>
+                        
+                        <div class="review-footer">
+                            {{ review.reviewer }}, {{ review.date_added }}
+                        </div>
                     </div>
-                    <div class="review-head">
-                        <b>Amaxing!</b> 
-                    </div>
-                    
-                    <div class="review-body">
-                        <p>This sucks! akjdhkasjdhasjkdhaskjdhakjsh</p>
-                    </div>
-                    
-                    <div class="review-footer">
-                        John, June 5, 2021
-                    </div>
-                </div>
-
-                <div class="customer-reviews">
-                    <!-- <p><i class="fas fa-user"></i> John</p> -->
-                    <div class="rating">
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>    
-                    </div>
-                    <div class="review-head">
-                        <b>Amaxing!</b> 
-                    </div>
-                    
-                    <div class="review-body">
-                        <p>This sucks! akjdhkasjdhasjkdhaskjdhakjsh</p>
-                    </div>
-                    
-                    <div class="review-footer">
-                        John, June 5, 2021
-                    </div>
-                </div>
+                {% endfor %}
 
             </div>
 
             <div class="col-2">
                 <h3>Write a review</h3>
-                <form class="review-form" action="">
+                <form class="review-form" action="{% url 'product' product.id %}" method="POST">
+                    {% csrf_token %}
                     <input name="subject" type="text" placeholder="Subject">
                     <textarea name="review" id="" cols="30" rows="10" placeholder="Write a review"></textarea>
                     <div class="input-rating">
                         <strong class="text-uppercase">Your Rating: </strong>
                         <div class="stars">
-                            <input type="radio" id="star5" name="rate" value="5" /><label for="star5"></label>
-                            <input type="radio" id="star4" name="rate" value="4" /><label for="star4"></label>
-                            <input type="radio" id="star3" name="rate" value="3" /><label for="star3"></label>
-                            <input type="radio" id="star2" name="rate" value="2" /><label for="star2"></label>
-                            <input type="radio" id="star1" name="rate" value="1" /><label for="star1"></label>
+                            <input type="radio" id="star5" name="rating" value="5"/><label for="star5"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
                         </div>
                     </div>
                     {% if user.is_authenticated %}

@@ -6,6 +6,15 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.alert {
+    text-align: center;
+    padding: 10px;
+}
+
+.success {
+    background-color: rgb(157, 197, 97);
+}
+
 .logo {
     top: 0;
     left: 0;

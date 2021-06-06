@@ -54,8 +54,9 @@ class Images(models.Model):
 class Review(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    review = models.TextField()
-    rating = models.IntegerField(default=1)
+    subject = models.CharField(max_length=150, blank=True)
+    review = models.TextField(blank=True)
+    rating = models.IntegerField()
     date_added = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -63,3 +64,12 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         return reverse('review-product', kwargs={'pk': self.product.id})
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    quantity = models.IntegerField()
+
+    def __str__(self):
+        return self.product.name

@@ -1,10 +1,13 @@
+from django.contrib import messages
 from django.http import request
-from django.shortcuts import render
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls.base import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import DeleteView
 from .models import Product, Review
+from .forms import ReviewForm
 
 # Create your views here.
 def home(request):
@@ -79,8 +82,22 @@ def products(request):
 
 def product(request, id):
     product = Product.objects.get(pk=id)
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            new_review = Review()
+            new_review.subject = form.cleaned_data['subject']
+            new_review.review = form.cleaned_data['review']
+            new_review.rating = form.cleaned_data['rating']
+            new_review.product = product
+            new_review.reviewer = request.user
+            new_review.save()
+            messages.success(request, "Thank you for reviewing our product.")
+            # Return back to the prev page
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))            
     context = {
-        'product': product
+        'product': product,
+        'reviews': Review.objects.filter(product=product).order_by('-date_added')[:2]
         }
     return render(request, 'store/product.html', context)
 
