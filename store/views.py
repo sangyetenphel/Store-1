@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.http import request
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import DeleteView
-from .models import Product, Review
-from .forms import ReviewForm
+from .models import Product, Review, Cart
+from .forms import ReviewForm, CartForm
 
 # Create your views here.
 def home(request):
@@ -101,5 +102,47 @@ def product(request, id):
         }
     return render(request, 'store/product.html', context)
 
+@login_required
 def cart(request):
-    return render(request, 'store/cart.html')
+    cart = Cart.objects.filter(user=request.user)
+    sub_total = 0
+    tax = 20
+    for order in cart:
+        sub_total += order.amount
+
+    context = {
+        'cart': cart,
+        'sub_total': sub_total,
+        'total': sub_total + tax
+    }
+    return render(request, 'store/cart.html', context)
+
+
+def add_cart(request, id):
+    url = request.META.get('HTTP_REFERER')
+    product = Product.objects.get(id=id)
+    if request.method == 'POST':
+        form = CartForm(request.POST)
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
+            if Cart.objects.filter(product_id=id):
+                cart = Cart.objects.get(product_id=id)
+                cart.quantity += quantity
+            else:
+                cart = Cart()
+                cart.user = request.user
+                cart.product = product
+                cart.quantity = quantity
+            cart.save()
+            messages.success(request, "Your product has been added to cart!")
+        else:
+            print(form.errors)
+            return HttpResponse(form.errors)
+            
+    return HttpResponseRedirect(url)
+
+
+def delete_cart(request, id):
+    Cart.objects.filter(id=id).delete()
+    messages.success(request, "The item has been removed from your cart.")
+    return redirect('cart')

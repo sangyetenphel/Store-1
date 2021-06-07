@@ -9,43 +9,31 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="{% static 'store/images/buy-1.jpg' %}" alt="">
-                        <div>
-                            <p>Red Printed Tshirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
+            {% for order in cart %}
+                <tr>
+                    <td>
+                        <div class="cart-info">
+                            <img src="{{ order.product.image.url }}" alt="">
+                            <div>
+                                <p>{{ order.product.name }}</p>
+                                <small>Price: {{ order.product.price }}</small>
+                                <br>
+                                <a href="{% url 'delete_cart' order.id %}" onclick="return confirm('Remove the item from your cart?');">Remove</a>
+                            </div>
                         </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1" min="1"></td>
-                <td>$50.00</td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-info">
-                        <img src="{% static 'store/images/buy-1.jpg' %}" alt="">
-                        <div>
-                            <p>Red Printed Tshirt</p>
-                            <small>Price: $50.00</small>
-                            <br>
-                            <a href="">Remove</a>
-                        </div>
-                    </div>
-                </td>
-                <td><input type="number" value="1"></td>
-                <td>$50.00</td>
-            </tr>
+                    </td>
+                    <td><input type="number" value="{{ order.quantity }}" min="1"></td>
+                    <td>${{ order.amount }}</td>
+                </tr>
+            {% endfor %}
+
         </table>
 
         <div class="total-price">
             <table>
                 <tr>
                     <td>Subtotal</td>
-                    <td>$200.00</td>
+                    <td>${{ sub_total }}</td>
                 </tr>
                 <tr>
                     <td>Tax</td>
@@ -53,7 +41,7 @@
                 </tr>
                 <tr>
                     <td>Total</td>
-                    <td>$220.00</td>
+                    <td>${{ total}}</td>
                 </tr>
             </table>
         </div>

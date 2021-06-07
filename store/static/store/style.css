@@ -8,11 +8,12 @@
 
 .alert {
     text-align: center;
-    padding: 10px;
 }
 
 .success {
-    background-color: rgb(157, 197, 97);
+    background-color: rgb(130, 238, 130);
+    padding: 10px;
+    color: grey;
 }
 
 .logo {
