@@ -141,10 +141,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Redirect to home page after successfully logging user in.
-LOGIN_REDIRECT_URL = 'store-home'
+# LOGIN_REDIRECT_URL = 'store-home'
 
 # Where to redirect when user tries to login to a page that requires @login_required
-LOGIN_URL = 'login'
+LOGIN_URL = 'user-login'
 
 
 ####################################
