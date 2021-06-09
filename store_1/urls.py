@@ -23,7 +23,7 @@ from users import views as user_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', user_views.register, name='register'),
+    path('register/', user_views.register, name='user-register'),
     path('profile/', user_views.profile, name='profile'),
     path('login', user_views.user_login, name='user-login'),
     path('logout/', user_views.user_logout, name='user-logout'),

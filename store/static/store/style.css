@@ -1,85 +1,31 @@
-* {
-    margin: 0;
-    padding: 0;
-    /* if we add 100px, that will include padding etc, so total will be exactly 100px */
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.alert {
-    text-align: center;
-    padding: 10px;
-    color: rgb(54, 54, 54);
-}
-
-.success {
-    background-color: rgb(130, 238, 130);
-}
-
-.warning {
-    background-color: rgb(250, 45, 45);
-}
-
-.logo {
-    top: 0;
-    left: 0;
-    position: absolute;
-}
-
-.logo img {
-    width: 220px;
-}
-
+/* Navbar */
 .navbar {
-    display: flex;
-    align-items: center;
-    padding-top: 20px;
+    padding: 20px;
 }
 
-nav {
-    flex: 1;
-    text-align: right;
-}
-
-nav ul {
-    display: inline-block;
-    list-style-type: none;
-}
-
-nav ul li {
-    display: inline-block;
-    margin-right: 20px;
-    position: relative;
-}
-
-nav ul li a:hover {
-    color: black;
-}
-
-nav ul li ul {
+.navbar-brand-centered {
     position: absolute;
-    top: 30px;
-    /* left: 0; */
-    display: block;
-    width: 100px;
-    transition: 0.5s;
-    background: #fff;
-    /* visibility: hidden; */
-    opacity: 0;
-    box-shadow: 0 10px 20px rgb(0 0 0 / 9%);
-    
+    left: 50%;
+    /* display: block; */
+    width: 160px;
+    text-align: center;
+    /* background-color: transparent; */
 }
 
-nav ul li:hover ul {
-    visibility: visible;
-    opacity: 1;
+.navbar>.container .navbar-brand-centered {
+    margin-left: -80px;
+}
+
+.navbar-brand img {
+    width: 150px;
+}
+
+.fa-shopping-cart {
     color: white;
 }
 
-nav ul li ul li {
-    float: left;
-    padding: 10px 5px;
-}
+
+
 
 .drop-logout {
     display: none;
@@ -96,25 +42,25 @@ nav ul li ul li {
     display: none;
 }
 
-a {
+/* a {
     text-decoration: none;
     color: #555;
 }
 
 p {
     color: #555;
-}
+} */
 
 .main {
     text-align: center;
 }
 
-.container {
+/* .container {
     max-width: 1300px;
     margin: auto;
     padding-left: 25px;
     padding-right: 25px;
-}
+} */
 
 .row {
     display: flex;
@@ -139,20 +85,19 @@ p {
     margin: 25px 0;
 }
 
-.btn {
+/* .btn {
     display: inline-block;
     padding: 10px 30px;
     margin: 30px 0;
-    /* border-radius: 30px; */
     transition: background 0.5s;
     border: 1px solid black;
     color: black;
-}
+} */
 
-.btn:hover {
+/* .btn:hover {
     background: #412B15;
     color: #fff;
-}
+} */
 
 
 /* Featured Categories */
@@ -671,51 +616,6 @@ form a {
 
 /* Media Queries */
 @media only screen and (max-width: 800px) {
-
-    /* Menu */
-    nav {
-        height: 100%;
-        background: grey;
-    } 
-
-    nav ul {
-        position: absolute;
-        top: 70px;
-        left: 0;
-        background: #333;
-        width: 100%;
-        overflow: hidden;
-        transition: max-height 0.5s;
-        height: 600px;
-    }
-
-    nav ul li {
-        display: block;
-        margin-right: 50px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    nav ul li ul {
-        width: 130px;
-        left: 85%;
-        height: 45px;
-    }
-
-    nav ul li ul li {
-        text-align: center;
-        padding: 0;
-        margin: 0;
-        padding-top: 5px;
-    }
-
-    nav ul li a {
-        color: #fff;
-    }
-
-    nav ul li ul {
-        display: none;
-    }
 
     .fa-angle-down {
         display: none;
