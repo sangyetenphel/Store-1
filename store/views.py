@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.views.generic.edit import DeleteView
-from .models import Product, Review, Cart
-from .forms import ReviewForm, CartForm
+from .models import Product, Review, Cart, OrderProduct
+from .forms import ReviewForm, CartForm, OrderForm
 
 # Create your views here.
 def home(request):
@@ -146,3 +146,34 @@ def delete_cart(request, id):
     Cart.objects.filter(id=id).delete()
     messages.success(request, "The item has been removed from your cart.")
     return redirect('cart')
+
+
+def order(request):
+    cart = Cart.objects.filter(user=request.user)
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            # Send credit card info to bank, If the bank responds ok, continue, if not, show the error
+
+            order = form.save(commit=False)
+            order.user = request.user
+            order.save()
+
+            for cart_item in cart:
+                order_product = OrderProduct()
+                order_product.order_id = order.id
+                order_product.product = cart_item.product
+                order_product.user = request.user
+                order_product.quantity = cart_item.quantity
+                order_product.price = cart_item.product.price
+                order_product.amount = order_product.quantity * order_product.price
+                order_product.save()
+            cart.delete()
+            messages.success(request, 'Your order has been completed!')
+            return HttpResponse('Your order has been placed!')
+    else:
+        form = OrderForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'store/order.html', context)

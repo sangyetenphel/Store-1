@@ -81,3 +81,44 @@ class Cart(models.Model):
     @property
     def amount(self):
         return self.quantity * self.product.price
+
+
+class Order(models.Model):
+    ORDER_STATUS = [
+        # (db, front-end)
+        ('New', 'New'),
+        ('Accepted', 'Accepted'),
+        ('Preparing', 'Preparing'),
+        ('On Shipping', 'On Shipping'),
+        ('Completed', 'Completed'),
+        ('Canceled', 'Canceled'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # Unique Order code to reference later, won't be displayed in admin/form
+    code = models.CharField(max_length=5, editable=False)
+    full_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+    street_address = models.CharField(max_length=150, blank=True)
+    apt_number = models.CharField(max_length=20)
+    city = models.CharField(max_length=150)
+    state = models.CharField(max_length=150)
+    zip_code = models.CharField(max_length=10) 
+    country = models.CharField(max_length=50)
+    date_added = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=15, choices=ORDER_STATUS, default='New')
+    admin_note = models.CharField(blank=True, max_length=100)
+
+
+class OrderProduct(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    quantity = models.IntegerField()
+    amount = models.DecimalField(max_digits=6, decimal_places=2)
+
+    
+
+
+
+

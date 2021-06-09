@@ -1,6 +1,5 @@
-from django.contrib.auth import models
 from django.forms import ModelForm, fields
-from .models import Review, Cart
+from .models import Review, Cart, Order
 
 class ReviewForm(ModelForm):
     class Meta:
@@ -12,3 +11,10 @@ class CartForm(ModelForm):
     class Meta:
         model = Cart    
         fields = ['quantity']
+
+
+class OrderForm(ModelForm):
+    class Meta:
+        model = Order
+        # fields = ['full_name', 'street_address', 'apt_number', 'city', 'state', 'zip_code', 'country', 'phone']
+        exclude = ['user', 'code', 'date_added', 'status', 'admin_note']

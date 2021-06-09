@@ -1,0 +1,19 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="small-container">
+    <div class="row">
+        <div class="col-2">
+            Shipping Info
+            <form action="{% url 'order' %}" method="POST">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </form>
+           
+        </div>
+        <div class="col-2">
+            Payment Info
+        </div>
+    </div>
+</div>
+{% endblock content %}
