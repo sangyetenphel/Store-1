@@ -11,99 +11,28 @@
         <p>Date added: {{ product.date_added|date:"F d, Y" }}</p>
     {% endfor %} -->
     
-    <div class="container">
-        <div class="row">
-            <div class="col-2 main">
-            <h1>Trendy Pet Supplies For A Good Cause <i class="far fa-heart"></i></h1>
-                <p>Here at happy paws, we offer the most exciting and unique pet products on the market today ranging from clothes, beds, leashes, and many more!
+    <div class="container-fluid text-center pt-5">
+        <div class="row showcase">
+            <div class="col-sm pt-5">
+            <h1 class="fw-normal">Trendy Products For Your Furry Friend</h1>
+                <p>We offer the most exciting and unique pet products on the market today ranging from clothes, beds, leashes, and many more!
                 What we really are proud of is being able to give back to those without voices of their own.</p>
-                <a href="" class="btn">Learn More</a>
+                <a href="" class="btn btn-dark">Learn More</a>
             </div>
-            <div class="col-2">
-                <img src="{% static 'store/images/happydog.jpg' %}" alt="">
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Featured Categories -->
-    <div class="categories">
-        <div class="small-container">
-            <div class="row">
-                <div class="col-3">
-                    <img src="{% static 'store/images/category-1.jpg' %}" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{% static 'store/images/category-2.jpg' %}" alt="">
-                </div>
-                <div class="col-3">
-                    <img src="{% static 'store/images/category-3.jpg' %}" alt="">
-                </div>
+            <div class="col">
+                <img src="{% static 'store/images/showcase.png' %}" class="img-fluid" alt="">
             </div>
         </div>
     </div>
 
     <!-- Featured Products -->
-    <div class="small-container">
+    <div class="container mb-5">
         <h2 class="title">Featured Products</h2>
         <div class="row">
-            <div class="col-4">
-                <img src="{% static 'store/images/product-1.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                </div>
-                <p>$50</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'store/images/product-2.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                </div>
-                <p>$50</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'store/images/product-3.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="far fa-star" aria-hidden="true"></i>
-                </div>
-                <p>$50</p>
-            </div>
-            <div class="col-4">
-                <img src="{% static 'store/images/product-4.jpg' %}" alt="">
-                <h4>Rd Printed T-Shirt</h4>
-                <div class="rating">
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star" aria-hidden="true"></i>
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <p>$50</p>
-            </div>
-        </div>
-
-        <!-- Latest Products -->
-        <h2 class="title">Latest Products</h2>
-        <div class="row">
             {% for product in latest_products %}
-                <div class="col-4">
-                    <img src="{{ product.image.url }}" alt="">
-                    <h4>{{ product.name }}</h4>
+                <div class="col-sm products">
+                    <img src="{{ product.image.url }}" class="img-thumbnail" alt="">
+                    <h5>{{ product.name }}</h5>
                     <div class="rating">
                         <i class="fas fa-star" aria-hidden="true"></i>
                         <i class="fas fa-star" aria-hidden="true"></i>
@@ -117,28 +46,26 @@
         </div>
     </div>
 
-    <!-- Offer -->
-    <div class="offer">
-        <div class="small-container">
-            <div class="row">
-                <div class="col-2">
-                    <img src="{% static 'store/images/exclusive.png' %}" class="offer-img" alt="">
-                </div>
-                <div class="col-2">
-                    <p>Exclusively Available on RedStore</p>
-                    <h1>Smart Brand 4</h1>
-                    <small>This is Lorem ipsum dolor sit amet consectetur inventore eaque, voluptates perspiciatis q</small>
-                    <a href="" class="btn">Buy Now &#8594;</a>
-                </div>
+    <!-- Pre Order -->
+    <div class="container-fluid">
+        <div class="row offer">
+            <div class="col-sm">
+                <img src="{% static 'store/images/hammock.png' %}" class="img-fluid p-5" alt="">
+            </div>
+            <div class="col pt-5">
+                <p>Exclusively Available On Pre-Order</p>
+                <h1>Smart Brand 4</h1>
+                <p>This is Lorem ipsum dolor sit amet consectetur inventore eaque, voluptates perspiciatis q</p>
+                <a href="" class="btn btn-dark">Pre-Order Now</a>
             </div>
         </div>
     </div>
 
+
     <!-- Testimonial -->
-    <div class="testimonial">
-        <div class="small-container">
-            <div class="row">
-                <div class="col-3">
+        <div class="container pt-5">
+            <div class="row justify-content-evenly">
+                <div class="col-3 testimonial">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
                     <div class="rating">
@@ -151,7 +78,7 @@
                     <img src="{% static 'store/images/user-1.png' %}" alt="">
                     <h3>Sean Parker</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-3 testimonial">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
                     <div class="rating">
@@ -164,7 +91,7 @@
                     <img src="{% static 'store/images/user-2.png' %}" alt="">
                     <h3>Sean Parker</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-3 testimonial">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
                     <div class="rating">
@@ -179,29 +106,28 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- Brands -->
-    <div class="brands">
+    <!-- <div class="brands">
         <div class="small-container">
             <div class="row">
-                <div class="col-5">
+                <div class="col">
                     <img src="{% static 'store/images/logo-godrej.png' %}" alt="">
                 </div>
-                <div class="col-5">
+                <div class="col">
                     <img src="{% static 'store/images/logo-oppo.png' %}" alt="">
                 </div>
-                <div class="col-5">
+                <div class="col">
                     <img src="{% static 'store/images/logo-coca-cola.png' %}" alt="">
                 </div>
-                <div class="col-5">
+                <div class="col">
                     <img src="{% static 'store/images/logo-paypal.png' %}" alt="">
                 </div>
-                <div class="col-5">
+                <div class="col">
                     <img src="{% static 'store/images/logo-philips.png' %}" alt="">
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 {% endblock content %}
 

@@ -2,29 +2,33 @@
 {% load static %}
 {% block content %}
     
-    <div class="small-container">
-        <div class="row row-2">
-            <h2>All Products</h2>
-            <select name="" id="">
-                <option value="">Default Sorting</option>
-                <option value="">Sort by price</option>
-                <option value="">Sort by popularity</option>
-                <option value="">Sort by rating</option>
-                <option value="">Sort by sale</option>
-            </select>
+    <div class="container">
+        <div class="row my-5">
+            <div class="col">
+                <h2>All Products</h2>
+            </div>
+            <!-- <div class="col">
+                <select name="" id="">
+                    <option value="">Default Sorting</option>
+                    <option value="">Sort by price</option>
+                    <option value="">Sort by popularity</option>
+                    <option value="">Sort by rating</option>
+                    <option value="">Sort by sale</option>
+                </select>
+            </div> -->
         </div>
-        <!-- <h2 class="title">Featured Products</h2> -->
-        <div class="row">
+
+        <div class="row products-link">
             {% for product in products %}
-            <a href="{% url 'product' product.id %}" class="col-4">
-                    <img src="{{ product.image.url }}" alt="">
-                    <h4>{{ product.name }}</h4>
+            <a href="{% url 'product' product.id %}" class="col-sm col-md-4 col-lg-3 products">
+                    <img src="{{ product.image.url }}" class="img-thumbnail" alt="">
+                    <h5>{{ product.name }}</h5>
                     <div class="rating">
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="far fa-star" aria-hidden="true"></i>
                     </div>
                     <p>${{ product.price }}</p>
             </a>

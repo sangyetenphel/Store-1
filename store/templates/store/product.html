@@ -3,42 +3,48 @@
 {% block content %}
 
     <!-- Single Product Detail -->
-    <div class="small-container single-product">
+    <div class="container mt-5">
         <div class="row">
-            <div class="col-2">
-                <img src="{{ product.image.url }}" id="product-img" alt="">
-
-                <div class="small-img-row">
+            <div class="col">
+                <div class="product-img-box">
+                    <img src="{{ product.image.url }}" id="product-img" class="img-fluid" alt="">
+                </div>
+                <div class="row g-1">
                     {% for product_image in product.images_set.all %}
-                        <div class="small-img-col">
-                            <img src="{{ product_image.image.url }}" class="small-img" alt="">
+                        <div class="col product-img">
+                            <img src="{{ product_image.image.url }}" class="small-img img-fluid " alt="">
                         </div>
                     {% endfor %}
-
                 </div>
             </div>
-            <div class="col-2">
+
+            <div class="col-8">
                 <p>Home / T-Shirt</p>
                 <h1>{{ product.name }}</h1>
                 <h4>${{ product.price }}</h4>
-                <select name="" id="">
-                    <option value="">Select Size</option>
-                    <option value="">XXL</option>
-                    <option value="">XXL</option>
-                    <option value="">XXL</option>
-                    <option value="">XXL</option>
-                </select>
-                <form action="{% url 'add_cart' product.id %}" method="POST">
+                <form class="row py-4" action="{% url 'add_cart' product.id %}" method="POST" >
                     {% csrf_token %}
-                    <input type="number" name="quantity" value="1" min="1">
-                    <input type="submit" class="btn" value="Add To Cart">
+                    <div class="col-3">
+                        <select class="form-select" name="" id="">
+                            <option value="" selected>Select Size</option>
+                            <option value="">XXL</option>
+                            <option value="">XXL</option>
+                            <option value="">XXL</option>
+                            <option value="">XXL</option>
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <input type="number" class="form-control" name="quantity" value="1" min="1">    
+                    </div>
+                    <div class="col-12 pt-3">
+                        <button type="submit" class="btn btn-dark btn-lg">Add To Cart</button>
+                    </div>
                 </form>
-                
-                <h3>Product Details <i class="fa fa-indent"></i></h3>
-                <br>
-                <p>{{ product.description|safe }}</p>
             </div>
         </div>
+        <h3>Product Details <i class="fa fa-indent"></i></h3>
+        <br>
+        <p>{{ product.description|safe }}</p>
     </div>
 
 
@@ -100,16 +106,16 @@
 
 
     <!-- Title -->
-    <div class="small-container">
+    <!-- <div class="small-container">
         <div class="row row-2">
             <h2>Related Products</h2>
             <p>View More</p>
         </div>
-    </div>
+    </div> -->
 
     
     <!-- Products -->
-    <div class="small-container">
+    <!-- <div class="small-container">
         <div class="row">
             <div class="col-4">
                 <img src="{% static 'store/images/product-1.jpg' %}" alt="">
@@ -161,7 +167,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
 
 {% endblock content %}
 
