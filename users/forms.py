@@ -2,7 +2,7 @@ from django.db.models.query_utils import FilteredRelation
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import fields
+from django.forms import fields, widgets
 from django.forms.fields import EmailField
 from .models import Profile
 
@@ -29,3 +29,6 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+        widgets = {
+            'image': forms.ClearableFileInput(attrs={'class': 'form-control mb-3'})
+        }

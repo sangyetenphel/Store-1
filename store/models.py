@@ -1,5 +1,6 @@
 from django.db import models
-from django.db.models.base import Model, ModelState
+from django.db.models import Avg
+# from django.db.models.base import Model, ModelState
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -38,6 +39,35 @@ class Product(models.Model):
 
     image_tag.short_description = "Product Image"
 
+    def review_average(self):
+        rating_dic = Review.objects.filter(product=self).aggregate(average_rating=Avg('rating'))
+        rating = rating_dic['average_rating']
+        if rating:
+            rating_list = []
+            for i in range(1, 6):
+                if rating > i:
+                    rating_list.append("fas fa-star")
+                elif rating >= (i - 0.5):
+                    rating_list.append('fas fa-star-half-alt')
+                else:
+                    rating_list.append('far fa-star')
+
+            return rating_list
+        else:
+            return None
+
+    
+    def review_count(self):
+        return Review.objects.filter(product=self).count()
+        
+        
+class Variant(models.Model):
+    title = models.CharField(max_length=250)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    size = models.CharField(max_length=6)
+    color = models.CharField(max_length=25)
+    image = models.ImageField(upload_to='products')
+
 
 class Images(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -64,6 +94,18 @@ class Review(models.Model):
 
     def get_absolute_url(self):
         return reverse('review-product', kwargs={'pk': self.product.id})
+
+    def rating_star(self):
+        if self.rating:
+            stars = []
+            for i in range(5):
+                if self.rating > i:
+                    stars.append('fas fa-star')
+                else:
+                    stars.append('far fa-star')
+            return stars
+        else:
+            return None
 
 
 class Cart(models.Model):
@@ -117,7 +159,9 @@ class OrderProduct(models.Model):
     quantity = models.IntegerField()
     amount = models.DecimalField(max_digits=6, decimal_places=2)
 
-    
+
+
+
 
 
 

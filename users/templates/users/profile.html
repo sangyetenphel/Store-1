@@ -3,19 +3,69 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <img class="rounded-circle" src="{{ user.profile.image.url }}" alt="">
-    <h2>{{ user.username }}</h2>
-    <p>{{ user.email }}</p>
-
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Profile Info</legend>
-            {{ u_form|crispy }}
-            {{ p_form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Update</button>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-2">
+            <img class="img-fluid" src="{{ user.profile.image.url }}" alt="">
         </div>
-    </form>
+        <div class="col">
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.email }}</p>
+        
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Profile Info</legend>
+                    {{ u_form|crispy }}
+                    {{ p_form|crispy }}
+                </fieldset>
+                <button class="btn btn-dark" type="submit">Update</button>
+            </form>
+        </div>
+        <div class="col-2 list-group-flush">
+            <h4 class="fw-normal">QUICK LINKS</h4>
+            <a href="" class="list-group-item list-group-item-action">My profile</a>
+            <a href="" class="list-group-item list-group-item-action">My comments</a>
+            <a href="" class="list-group-item list-group-item-action">My orders</a>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mt-5">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Rating</th>
+                        <th>Subject</th>
+                        <th>Review</th>
+                        <th>Date added</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for review in reviews %}
+                        <tr>
+                            <td>
+                                <div class="cart-info">
+                                    <img src="{{ review.product.image.url }}" alt="">
+                                    <div>
+                                        <p>{{ review.product.name }}</p>
+                                        <small>Price: {{ review.product.price }}</small>
+                                        <br>
+                                        <a href="{% url 'user-review-delete' review.id %}" onclick="return confirm('Delete review for {{ review.product.name }}?');">Remove</a>
+                                    </div>
+                                </div>     
+                            </td>
+                            <td>{{ review.rating }}</td>
+                            <td>{{ review.subject }}</td>
+                            <td>{{ review.review }}</td>
+                            <td>{{ review.date_added }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    
+
+</div>
+
 {% endblock content %}

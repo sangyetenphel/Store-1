@@ -5,20 +5,21 @@
     <!-- Single Product Detail -->
     <div class="container mt-5">
         <div class="row">
-            <div class="col">
+            <div class="col-1">
+                {% for product_image in product.images_set.all %}
+                    <div class="row product-img">
+                        <img src="{{ product_image.image.url }}" class="small-img img-fluid " alt="">
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col-4">
                 <div class="product-img-box">
                     <img src="{{ product.image.url }}" id="product-img" class="img-fluid" alt="">
                 </div>
-                <div class="row g-1">
-                    {% for product_image in product.images_set.all %}
-                        <div class="col product-img">
-                            <img src="{{ product_image.image.url }}" class="small-img img-fluid " alt="">
-                        </div>
-                    {% endfor %}
-                </div>
             </div>
 
-            <div class="col-8">
+
+            <div class="col-7">
                 <p>Home / T-Shirt</p>
                 <h1>{{ product.name }}</h1>
                 <h4>${{ product.price }}</h4>
@@ -37,67 +38,70 @@
                         <input type="number" class="form-control" name="quantity" value="1" min="1">    
                     </div>
                     <div class="col-12 pt-3">
-                        <button type="submit" class="btn btn-dark btn-lg">Add To Cart</button>
+                        <button type="submit" class="btn btn-dark">Add To Cart</button>
                     </div>
                 </form>
             </div>
         </div>
-        <h3>Product Details <i class="fa fa-indent"></i></h3>
-        <br>
-        <p>{{ product.description|safe }}</p>
+
+        <div class="container">
+            <h3>Product Details <i class="fa fa-indent"></i></h3>
+            <br>
+            <p>{{ product.description|safe }}</p>
+        </div>
     </div>
 
 
     <!-- Review -->
-    <div class="small-container">
+    <div class="container my-5">
         <div class="row">
-            <div class="col-2">
+            <div class="col">
+                <h4>Total Reviews: {{ product.review_count }}</h4>
                 {% for review in reviews %}
-                    <div class="customer-reviews">
-                        <!-- <p><i class="fas fa-user"></i> John</p> -->
-                        <div class="rating">
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="fas fa-star" aria-hidden="true"></i>
-                            <i class="far fa-star" aria-hidden="true"></i>    
-                        </div>
-                        <div class="review-head">
-                            <b>{{ review.subject }}</b> 
-                        </div>
+                    <div class="mb-5">
+                        <p class="fs-3 m-0">{{ review.subject }}</p> 
                         
-                        <div class="review-body">
-                            <p>{{ review.review }}</p>
-                        </div>
-                        
-                        <div class="review-footer">
-                            {{ review.reviewer }}, {{ review.date_added }}
-                        </div>
+                        {% if review.rating_star %}
+                            <div class="rating">
+                                {% for rating in review.rating_star %}
+                                    <i class="{{ rating }}" aria-hidden="true"></i>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p>No reviews yet.</p>
+                        {% endif %}
+                        <p class="lead m-1">{{ review.review }}</p>
+                        <p class="fw-lighter fst-italic">{{ review.reviewer|title }}, {{ review.date_added }}</p>
                     </div>
                 {% endfor %}
-
             </div>
 
-            <div class="col-2">
-                <h3>Write a review</h3>
+            <div class="col">
+                <h3 class="fw-normal pb-3">Write a review</h3>
                 <form class="review-form" action="{% url 'product' product.id %}" method="POST">
                     {% csrf_token %}
-                    <input name="subject" type="text" placeholder="Subject">
-                    <textarea name="review" id="" cols="30" rows="10" placeholder="Write a review"></textarea>
-                    <div class="input-rating">
-                        <strong class="text-uppercase">Your Rating: </strong>
+                    <div class="mb-3">
+                        <input name="subject" type="text" class="form-control" placeholder="Subject">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <textarea class="form-control" name="review" id="" cols="30" rows="10" placeholder="Write a review"></textarea> 
+                    </div>
+                    
+                    <div class="input-rating mb-3">
+                        <strong class="text-uppercase fw-normal">Your Rating: </strong>
                         <div class="stars">
-                            <input type="radio" id="star5" name="rating" value="5"/><label for="star5"></label>
-                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
-                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
-                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
-                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                            <input class="form-check-input" type="radio" id="star5" name="rating" value="5"/><label for="star5"></label>
+                            <input class="form-check-input" type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                            <input class="form-check-input" type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                            <input class="form-check-input" type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                            <input class="form-check-input" type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
                         </div>
                     </div>
                     {% if user.is_authenticated %}
-                        <button type="submit" class="btn">Submit</button>
+                        <button type="submit" class="btn btn-dark">Submit</button>
                     {% else %}
-                        <a href="{% url 'login' %}">You must be logged in to write a review.</a>
+                        <a href="{% url 'user-login' %}">You must be logged in to write a review.</a>
                     {% endif %}
                 </form>
             </div>

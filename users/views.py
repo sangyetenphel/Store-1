@@ -1,3 +1,5 @@
+from store.models import Review
+from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, logout
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -21,11 +23,11 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    messages.success(request, 'You have sucessfully logged out!')
+    messages.success(request, 'See you soon!')
     return redirect('store-home')
 
 
-def register(request):
+def user_register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
@@ -41,7 +43,7 @@ def register(request):
 
 
 @login_required
-def profile(request):
+def user_profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile) 
@@ -53,8 +55,17 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    reviews = Review.objects.filter(reviewer=request.user)
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'reviews': reviews,
     }
     return render(request, 'users/profile.html', context)
+
+
+def user_review_delete(request, id):
+    Review.objects.get(pk=id).delete()
+    messages.success(request, 'Your review has been deleted.')
+    return redirect('user-profile')

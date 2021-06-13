@@ -44,7 +44,7 @@
                     Hello, {{ user.username|title }}
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user-profile' %}">Profile</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'user-logout' %}">Log Out</a></li>
                   </ul>
@@ -64,15 +64,13 @@
           </li> 
         </div>
       </nav>
-
-    {% if messages %}
-      {% for message in messages %}
-        <div class="alert {{ message.tags }}">
-          {{ message }}
-        </div>
-      {% endfor %}
-    {% endif %}
-        
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} text-center">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
     {% block content %}
     {% endblock %}
 

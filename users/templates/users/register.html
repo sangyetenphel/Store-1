@@ -3,19 +3,26 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form action="" method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Sign Up</legend>
-            {{ form|crispy }}
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-info" type="submit">Sign Up</button>
+<div class="container-fluid bg-pink p-5">
+    <div class="row">
+        <div class="col">
+            
         </div>
-    </form>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Already have an Account? <a class="ml-2" href="{% url 'user-login' %}">Sign In</a>
-        </small>
+        <div class="col form-container-fluid">
+            <legend class="border-bottom mb-4 text-center">Sign Up</legend>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button class="btn btn-dark mt-3" type="submit">Sign Up</button>
+            </form>
+            <div class="border-top my-3 pt-2">
+                <small class="text-muted">
+                    Already have an Account? <a href="{% url 'user-login' %}">Sign In</a>
+                </small>
+            </div>
+        </div>
     </div>
+    
+</div>
+
 {% endblock content %}

@@ -2,15 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <!-- <h1>This is the updated index page for store!</h1>
-    {% for product in products %}
-        <img src="{{ product.image.url }}" alt="">
-        <h4>Name: {{ product.name }}</h4>
-        <a href="{% url 'review-product' product.id %}">{{ product.review_set.count }} review{{ product.review_set.count|pluralize }}</a>
-        <p>Price: {{ product.price }}</p>
-        <p>Date added: {{ product.date_added|date:"F d, Y" }}</p>
-    {% endfor %} -->
-    
     <div class="container-fluid text-center pt-5">
         <div class="row showcase">
             <div class="col-sm pt-5">
@@ -33,13 +24,16 @@
                 <div class="col-sm products">
                     <img src="{{ product.image.url }}" class="img-thumbnail" alt="">
                     <h5>{{ product.name }}</h5>
+                    {% if product.review_average %}
                     <div class="rating">
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="fas fa-star" aria-hidden="true"></i>
-                        <i class="far fa-star" aria-hidden="true"></i>
+                        {% for rating in product.review_average %}
+                            <i class="{{ rating }}" aria-hidden="true"></i>
+                        {% endfor %}
+                        {{ product.review_count }} Review{{ product.review_count|pluralize }}
                     </div>
+                    {% else %}
+                        <p>No reviews yet.</p>
+                    {% endif %}
                     <p>${{ product.price }}</p>
                 </div>
             {% endfor %}
@@ -48,7 +42,7 @@
 
     <!-- Pre Order -->
     <div class="container-fluid">
-        <div class="row offer">
+        <div class="row bg-pink">
             <div class="col-sm">
                 <img src="{% static 'store/images/hammock.png' %}" class="img-fluid p-5" alt="">
             </div>

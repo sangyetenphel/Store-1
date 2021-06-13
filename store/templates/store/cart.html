@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </td>
-                    <td><input type="number" value="{{ order.quantity }}" min="1"></td>
+                    <td><input type="number" class="form-control small-input" value="{{ order.quantity }}" min="1"></td>
                     <td>${{ order.amount }}</td>
                 </tr>
             {% endfor %}
@@ -33,7 +33,7 @@
         </table>
 
         <div class="total-price">
-            <table class="table table-borderless">
+            <table class="table table-borderless align-self-end">
                 <tr>
                     <td>Subtotal</td>
                     <td>${{ sub_total }}</td>
@@ -50,7 +50,9 @@
                </tfoot>
             </table>
         </div>
-        <a href="{% url 'order' %}">Make Payment</a>
+        <div class="mb-5">
+            <a class="btn btn-dark float-end" href="{% url 'order' %}">Make Payment</a>
+        </div>
     </div>
 {% endblock content %}
 
