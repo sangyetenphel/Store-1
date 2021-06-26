@@ -10,7 +10,7 @@ class ReviewForm(ModelForm):
 class CartForm(ModelForm):
     class Meta:
         model = Cart    
-        fields = ['quantity']
+        fields = ['variant', 'quantity']
 
 
 class OrderForm(ModelForm):

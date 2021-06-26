@@ -1,20 +1,79 @@
-// Product Gallery
-var productImg = document.getElementById("product-img");
-var smallImg = document.getElementsByClassName("small-img");
+document.addEventListener('DOMContentLoaded', function() {
+    // Generating CSRFToken
+    // function getCookie(name) {
+    //     let cookieValue = null;
+    //     if (document.cookie && document.cookie !== '') {
+    //         const cookies = document.cookie.split(';');
+    //         for (let i = 0; i < cookies.length; i++) {
+    //             const cookie = cookies[i].trim();
+    //             // Does this cookie string begin with the name we want?
+    //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return cookieValue;
+    // }
+    // const csrftoken = getCookie('csrftoken');
 
-smallImg[0].onclick = function() {
-    productImg.src = smallImg[0].src;
-}
-smallImg[1].onclick = function() {
-    productImg.src = smallImg[1].src;
-}
-smallImg[2].onclick = function() {
-    productImg.src = smallImg[2].src;
-}
-smallImg[3].onclick = function() {
-    productImg.src = smallImg[3].src;
-}
+    // // Changing the main product image when smaller image thumbnail is clicked
+    // document.querySelectorAll('.small-img').forEach(img => {
+    //     img.onclick = function() {
+    //         document.querySelector("#product-img").src = img.src;
+    //     }
+    // })
 
+    // document.querySelectorAll('.radio-color').forEach(color => {
+    //     color.addEventListener('change', function() {
+    //         // location.reload();
+    //     })
+    // })
+
+    // // Changing the product image variant when size is changed
+    // document.querySelector('#select-size').onchange = function() {
+    //     fetch('/ajax_sizes', {
+    //         method: "POST",
+    //         headers: {
+    //             'X-CSRFToken': csrftoken,
+    //         },
+    //         body: JSON.stringify({
+    //             productId: document.querySelector("#productId").value,
+    //             size: this.value,
+    //         })
+    //     }).then(response => response.json())
+    //     .then(data => {
+    //         document.querySelector('#ajax-color-variants').innerHTML = data.rendered_table;
+    //     })
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+    // }
+
+
+    // Get Stripe publishable key
+    fetch("/stripe_config/")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+        // Initialize Stripe.js
+        const stripe = Stripe(data.publicKey);
+
+        // Event handler
+        document.querySelector("#paymentBtn").addEventListener("click", () => {
+            // Get Checkout Session ID
+            fetch("/create-checkout-session/")
+            .then((result) => { return result.json(); })
+            .then((data) => {
+                console.log(data);
+                // Redirect to Stripe Checkout
+                return stripe.redirectToCheckout({sessionId: data.sessionId})
+            })
+            .then((res) => {
+                console.log(res);
+            });
+        });
+    });
+}); 
 
 
 

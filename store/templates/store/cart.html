@@ -16,9 +16,13 @@
                 <tr>
                     <td>
                         <div class="cart-info">
-                            <img src="{{ order.product.image.url }}" alt="">
+                            {% if order.variant %}
+                                <img src="{{ order.variant.image }}" alt="">
+                            {% else %}
+                                <img src="{{ order.product.image.url }}" alt="">
+                            {% endif %}
                             <div>
-                                <p>{{ order.product.name }}</p>
+                                <p>{{ order.product.name }} {{ order.variant.size }} {{ order.variant.color }}</p>
                                 <small>Price: {{ order.product.price }}</small>
                                 <br>
                                 <a href="{% url 'delete_cart' order.id %}" onclick="return confirm('Remove the item from your cart?');">Remove</a>
@@ -51,7 +55,7 @@
             </table>
         </div>
         <div class="mb-5">
-            <a class="btn btn-dark float-end" href="{% url 'order' %}">Make Payment</a>
+            <a id="paymentBtn" class="btn btn-dark float-end">Make Payment</a>
         </div>
     </div>
 {% endblock content %}

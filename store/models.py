@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import Avg
+# from django.db.models.base import Model
+from django.db.models.deletion import SET_NULL
 # from django.db.models.base import Model, ModelState
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -10,12 +12,20 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 # Create your models here.
 class Product(models.Model):
+    VARIANTS = (
+        ('None', 'None'),
+        ('Size', 'Size'),
+        ('Color', 'Color'),
+        ('Size-Color', 'Size-Color')
+    )
+    
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     keyword = models.CharField(max_length=255)
     date_added = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to='products')
     description = RichTextUploadingField()
+    variant = models.CharField(max_length=10, choices=VARIANTS, default='None')
     # amount = models.IntegerField()
     # min_amount = models.IntegerField()
     # status = models.BooleanField()
@@ -56,20 +66,11 @@ class Product(models.Model):
         else:
             return None
 
-    
     def review_count(self):
         return Review.objects.filter(product=self).count()
-        
-        
-class Variant(models.Model):
-    title = models.CharField(max_length=250)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    size = models.CharField(max_length=6)
-    color = models.CharField(max_length=25)
-    image = models.ImageField(upload_to='products')
 
 
-class Images(models.Model):
+class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True)
     image = models.ImageField(blank=True, null=True, upload_to="products")
@@ -78,8 +79,66 @@ class Images(models.Model):
         return self.title
     
     class Meta:
-        verbose_name_plural = "Images"
+        verbose_name_plural = "Product images"
 
+# class VariantManager(models.Manager):
+#     def sizes(self):
+#         return self.filter(category='size')
+
+
+# PRODUCT_CATEGORIES = (
+#     ('size', 'size'),
+#     ('color', 'color'),
+# )
+
+class Color(models.Model):
+    name = models.CharField(max_length=10)
+    # color_code = models.CharField(max_length=15, blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    # def color_tag(self):
+    #     if self.color_code:
+    #         return mark_safe(f'<p style="background-color: {self.color_code}"></p>')
+
+
+class Size(models.Model):
+    name = models.CharField(max_length=3)
+    
+    def __str__(self):
+        return self.name
+
+
+class ProductVariant(models.Model):
+    title = models.CharField(max_length=250)
+    # category = models.CharField(max_length=50, choices=PRODUCT_CATEGORIES, default='size')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    size = models.ForeignKey(Size, on_delete=models.SET_NULL, blank=True, null=True)
+    color = models.ForeignKey(Color, on_delete=models.SET_NULL, blank=True, null=True)
+    image_id = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+    def image(self):
+        img_query_set = ProductImage.objects.filter(id=self.image_id) 
+        if img_query_set:
+            img = img_query_set[0].image.url
+        else:
+            img = ''
+        return img
+
+    def image_tag(self):
+        img_query_set = ProductImage.objects.filter(id=self.image_id)
+        if img_query_set:
+            return mark_safe(f'<img src="{img_query_set[0].image.url}" height="50"')
+        else:
+            return ''
+
+
+
+    # objects = VariantManager()
 
 class Review(models.Model):
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -111,7 +170,8 @@ class Review(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    quantity = models.IntegerField()
+    variant = models.ForeignKey(ProductVariant, on_delete=SET_NULL, blank=True, null=True)
+    quantity = models.IntegerField() 
 
     def __str__(self):
         return self.product.name
