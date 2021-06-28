@@ -7,6 +7,7 @@ from django.http.response import HttpResponse, HttpResponseRedirect, JsonRespons
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt 
 from django.shortcuts import redirect, render
+
 # from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 # from django.urls.base import reverse_lazy

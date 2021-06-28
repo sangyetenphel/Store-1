@@ -1,10 +1,13 @@
 from store.models import Review
 from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, logout
+from django.contrib.auth import authenticate, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy, reverse
 from .forms import UserRegistrationForm, UserUpdateForm, ProfileUpdateForm
 
 # Create your views here.
@@ -17,7 +20,7 @@ def user_login(request):
             login(request, user)
             return redirect('store-home')
         else:
-            messages.warning(request, "Login Error! Username or password is incorrect.")
+            messages.error(request, "Login Error! Username or password is incorrect.")
     return render(request, 'users/login.html')
 
 
@@ -69,3 +72,39 @@ def user_review_delete(request, id):
     Review.objects.get(pk=id).delete()
     messages.success(request, 'Your review has been deleted.')
     return redirect('user-profile')
+
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('user-profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'users/password_change.html', {
+        'form': form
+    })
+
+
+class UserPasswordResetView(PasswordResetView):
+    template_name = 'users/password_reset.html'
+    def form_valid(self, form):
+        messages.success(self.request, f"Password reset information has been sent to the email provided.")
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('user-login')
+
+
+class UserPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'users/password_reset_confirm.html'
+
+    def form_valid(self, form):
+        messages.success(self.request, f"You can now login with your new password.")
+        return super().form_valid(form)
+
+    success_url = reverse_lazy('user-login')
