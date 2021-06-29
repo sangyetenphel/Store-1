@@ -21,8 +21,8 @@
         <div class="row products-link">
             {% for product in products %}
             <a href="{% url 'product' product.id %}" class="col-sm col-md-4 col-lg-3 products">
-                    <img src="{{ product.image.url }}" class="img-thumbnail" alt="">
-                    <h5>{{ product.name }}</h5>
+                    <img src="{{ product.image.url }}" class="img-fluid" alt="">
+                    <h2>{{ product.name }} <span class="price">${{ product.price }}</span></h2>
                     {% if product.review_average %}
                         <div class="rating">
                             {% for rating in product.review_average %}
@@ -31,9 +31,8 @@
                             {{ product.review_count }} Review{{ product.review_count|pluralize }}
                         </div>
                     {% else %}
-                        <p>No reviews yet.</p>
-                    {% endif %}
-                    <p>${{ product.price }}</p>
+                        <p class="pink">No reviews yet.</p>
+                    {% endif %}     
             </a>
             {% endfor %}
         </div>

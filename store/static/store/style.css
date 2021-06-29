@@ -1,3 +1,12 @@
+a {
+    transition: all .2s ease-in;
+    color: grey;
+}
+
+a:hover {
+    color: black;
+}
+
 .form-control:focus, .form-select:focus {
     border-color: #ffd6d6;
     box-shadow: 0 0 0 0.2rem rgba(236, 178, 197, 0.25);
@@ -7,14 +16,13 @@
     background: radial-gradient(#fff, #ffd6d6);
 }
 
+.pink {
+    color: #f08585;
+}
+
 .list-group-item-action:hover {
     background-color: #ffe8e8;
 }
-
-/* a {
-    color: #ffd6d6;
-    font-size: 12px;
-} */
 
 /* Navbar */
 .navbar-brand-centered {
@@ -44,20 +52,31 @@
     padding-right: 25px;
 }
 
-
 /* Featured Product */
 .products{
     cursor: pointer;
     transition: transform 0.5s;
+    color: #555;
+    font-weight: lighter;
 }
 
 .products:hover {
     transform: translateY(-5px);
 }
 
-.products h5 {
-    color: #555;
-    font-weight: normal;
+.products h2 {
+    margin: 0;
+    margin-top: 15px;
+    font-weight: lighter;
+    font-size: 18px;
+}
+
+.price {
+    float: right;
+}
+
+.rating i {
+    color: #ffd6d6;
 }
 
 .title {
@@ -80,9 +99,6 @@
     transform:translateX(-50%);
 }
 
-.rating i {
-    color: #ffd6d6;
-}
 
 /* Testimonial */
 .fa-quote-left {
@@ -128,18 +144,32 @@
 
 /* Footer */
 footer {
-    text-align: center;
+    border-top: 1px solid rgb(211, 209, 209);
+}
+
+footer ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+footer h5 {
+    margin-bottom: 10px;
 }
 
 .socials i{
+    margin-top: 10px;
     padding-right: 20px;
-    font-size: 20px;
+    font-size: 25px;
     color: black;
 }
 
 /* All Products */
 .products-link a {
     text-decoration: none;
+}
+
+.products-link a:hover {
+    color: black;
 }
 
 .page-btn {
@@ -182,6 +212,23 @@ footer {
     object-fit: cover;
 }
 
+.radio-color { 
+    position: absolute;
+    opacity: 0;
+    /* width: 0;
+    height: 0; */
+}
+
+.radio-color + img {
+    cursor: pointer;
+}
+  
+.radio-color:checked + img {
+    outline: 2px solid #ffd6d6;
+}
+
+
+
 /* Review Form */
 .review-form .input-rating .stars {
     display: inline-block;
@@ -189,7 +236,8 @@ footer {
 }
 
 .review-form .input-rating .stars input[type="radio"] {
-    display: none;
+    opacity: 0;
+    position: absolute;
 }
 
 .review-form .input-rating .stars>label {

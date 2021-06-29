@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    Generating CSRFToken
+    //Generating CSRFToken
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {

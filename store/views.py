@@ -93,9 +93,11 @@ def products(request):
 
 def product(request, id):
     product = Product.objects.get(pk=id)
+    side_images = product.productimage_set.all()[:4]
     context = {
         'product': product,
         'reviews': Review.objects.filter(product=product).order_by('-date_added')[:2],
+        'side_images': side_images,
     }
 
     if request.method == 'POST':
@@ -130,7 +132,8 @@ def ajax_sizes(request):
         return JsonResponse(data)
 
 
-def review_product(request):
+def review_product(request, id):
+    product = Product.objects.get(id=id)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
@@ -143,8 +146,10 @@ def review_product(request):
             new_review.save()
             messages.success(request, "Thank you for reviewing our product.")
             # Return back to the prev page
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))            
-
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
+        else:
+            messages.error(request, "Error reviewing product. Try again!")
+            return redirect('product', id=product.id)
 
 @login_required
 def cart(request):

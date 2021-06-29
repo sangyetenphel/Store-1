@@ -5,7 +5,7 @@
     <div class="container-fluid text-center pt-5">
         <div class="row showcase">
             <div class="col-sm pt-5">
-            <h1 class="fw-normal">Trendy Products For Your Furry Friend</h1>
+            <h1 class="fw-normal">Pet Supplies, Save Lives</h1>
                 <p>We offer the most exciting and unique pet products on the market today ranging from clothes, beds, leashes, and many more!
                 What we really are proud of is being able to give back to those without voices of their own.</p>
                 <a href="" class="btn btn-dark">Learn More</a>
@@ -22,8 +22,8 @@
         <div class="row">
             {% for product in latest_products %}
                 <div class="col-sm products">
-                    <img src="{{ product.image.url }}" class="img-thumbnail" alt="">
-                    <h5>{{ product.name }}</h5>
+                    <img src="{{ product.image.url }}" class="img-fluid" alt="">
+                    <h2>{{ product.name }} <span class="price">${{ product.price }}</span></h2>
                     {% if product.review_average %}
                     <div class="rating">
                         {% for rating in product.review_average %}
@@ -32,9 +32,9 @@
                         {{ product.review_count }} Review{{ product.review_count|pluralize }}
                     </div>
                     {% else %}
-                        <p>No reviews yet.</p>
+                        <span class="pink">New!</span>
                     {% endif %}
-                    <p>${{ product.price }}</p>
+                    
                 </div>
             {% endfor %}
         </div>
@@ -48,8 +48,8 @@
             </div>
             <div class="col pt-5">
                 <p>Exclusively Available On Pre-Order</p>
-                <h1>Smart Brand 4</h1>
-                <p>This is Lorem ipsum dolor sit amet consectetur inventore eaque, voluptates perspiciatis q</p>
+                <h1>Cat Window Hammock</h1>
+                <p>Safety suction cups powered cat window hammock saving space, use as a mounted cat window perch bed, ideal for a sunbath.</p>
                 <a href="" class="btn btn-dark">Pre-Order Now</a>
             </div>
         </div>
