@@ -26,7 +26,7 @@ def user_login(request):
 
 def user_logout(request):
     logout(request)
-    messages.success(request, 'See you soon!')
+    messages.success(request, 'See you again!')
     return redirect('store-home')
 
 

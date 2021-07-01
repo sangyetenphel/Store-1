@@ -2,21 +2,15 @@ import json
 import stripe
 
 from django.contrib import messages
-# from django.http import request
 from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt 
 from django.shortcuts import redirect, render
-
-# from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
-# from django.urls.base import reverse_lazy
 from django.template.loader import render_to_string
 from django.views.generic import TemplateView
-# from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-# from django.views.generic.edit import DeleteView
-from .models import Color, Order, Product, ProductVariant, Review, Cart, OrderProduct, Color, Size
-from .forms import ReviewForm, CartForm, OrderForm
+from .models import Product, ProductVariant, Review, Cart
+from .forms import ReviewForm, CartForm
 
 # Create your views here.
 def home(request):
@@ -28,66 +22,10 @@ def home(request):
     return render(request, 'store/home.html', context)
 
 
-# class ReviewDetailView(DetailView):
-#     model = Product
-
-#     def get_context_data(self, **kwargs):
-#         # Call the base implementation first to get a context
-#         context = super().get_context_data(**kwargs)
-#         # Add in a QuerySet of all the reviews of a particular Product
-#         context['reviews'] = Review.objects.filter(product=self.kwargs.get('pk'))
-#         return context
-
-
-# class ReviewCreateView(LoginRequiredMixin, CreateView):
-#     model = Review
-#     fields = ['review'] 
-
-#     def form_valid(self, form):
-#         form.instance.reviewer = self.request.user
-#         form.instance.product = Product.objects.get(pk=self.kwargs['product_id'])
-#         return super().form_valid(form)
-
-
-# class ReviewUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-#     model = Review
-#     fields = ['review'] 
-
-#     def form_valid(self, form):
-#         form.instance.reviewer = self.request.user
-#         return super().form_valid(form)
-
-#     def test_func(self):
-#         """So User can only edit his/her own review"""
-#         review = self.get_object()
-#         if self.request.user == review.reviewer:
-#             return True
-#         else:
-#             return False 
-
-
-# class ReviewDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-#     model = Review
-
-#     def get_success_url(self):
-#         product = self.object.product
-#         return reverse_lazy('review-product', kwargs={'pk': product.id})
-
-#     def test_func(self):
-#         """So User can only edit his/her own review"""
-#         review = self.get_object()
-#         if self.request.user == review.reviewer:
-#             return True
-#         else:
-#             return False 
-
-            
-
 def products(request):
     context = {
         'products': Product.objects.all()
     }
-    
     return render(request, 'store/products.html', context)
 
 
@@ -99,7 +37,6 @@ def product(request, id):
         'reviews': Review.objects.filter(product=product).order_by('-date_added')[:2],
         'side_images': side_images,
     }
-
     if request.method == 'POST':
        pass
     else:
@@ -113,7 +50,6 @@ def product(request, id):
                 'colors': colors,
                 'variant': variant
             })   
-
     return render(request, 'store/product.html', context)
 
 
@@ -158,7 +94,6 @@ def cart(request):
     tax = 20
     for order in cart:
         sub_total += order.amount
-
     context = {
         'cart': cart,
         'sub_total': sub_total,

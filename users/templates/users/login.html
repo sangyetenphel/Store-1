@@ -3,59 +3,29 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <!-- Account Page -->
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <img src="{% static 'store/images/image1.png' %}" alt="" width="100%">
+    <div class="container-fluid bg-pink p-5">
+        <div class="login-form mx-auto">
+            <div>
+                <legend class="border-bottom mb-4">Login</legend>
             </div>
 
-            <div class="col">
-                <div class="form-container">
-                    <div>
-                        <legend class="border-bottom mb-4">Login</legend>
-                    </div>
-
-                    <form action="{% url 'user-login' %}" method="POST">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <input type="text" class="form-control" name="username" placeholder="Username">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
-                        </div>
-                        <div class="d-grid mb-3">
-                            <button type="submit" class="btn btn-dark">Login</button>
-                        </div>
-                        <div class="border-top my-3 pt-2">
-                            <small class="text-muted">
-                                <a href="{% url 'password-reset' %}">Forgot password</a>
-                            </small>
-                        </div>
-                    </form>
+            <form action="{% url 'user-login' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="username" placeholder="Username">
                 </div>
-            </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-dark">Login</button>
+                </div>
+                <div class="border-top my-3 pt-2">
+                    <small class="text-muted">
+                        <a href="{% url 'password-reset' %}">Forgot password</a>
+                    </small>
+                </div>
+            </form>
         </div>
     </div>
-
-
-    <!-- <script>
-        // Toggle Form
-        var loginForm = document.getElementById("login-form");
-        var regForm = document.getElementById("reg-form");
-        var indicator = document.getElementById("indicator");
-
-        function register() {
-            regForm.style.transform = "translateX(0px)";
-            loginForm.style.transform = "translateX(0px)";
-            indicator.style.transform = "translateX(100px)";
-        }
-
-        function login() {
-            regForm.style.transform = "translateX(300px)";
-            loginForm.style.transform = "translateX(300px)";
-            indicator.style.transform = "translateX(0px)";
-        }
-    </script> -->
-    
 {% endblock content %}

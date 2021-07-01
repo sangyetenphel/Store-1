@@ -21,7 +21,7 @@
         <h2 class="title">Featured Products</h2>
         <div class="row">
             {% for product in latest_products %}
-                <div class="col-sm products">
+                <div class="col-md-6 col-lg-3 products">
                     <img src="{{ product.image.url }}" class="img-fluid" alt="">
                     <h2>{{ product.name }} <span class="price">${{ product.price }}</span></h2>
                     {% if product.review_average %}
@@ -46,7 +46,7 @@
             <div class="col-sm">
                 <img src="{% static 'store/images/hammock.png' %}" class="img-fluid p-5" alt="">
             </div>
-            <div class="col pt-5">
+            <div class="col pt-5 p-5">
                 <p>Exclusively Available On Pre-Order</p>
                 <h1>Cat Window Hammock</h1>
                 <p>Safety suction cups powered cat window hammock saving space, use as a mounted cat window perch bed, ideal for a sunbath.</p>
@@ -57,9 +57,9 @@
 
 
     <!-- Testimonial -->
-        <div class="container pt-5">
-            <div class="row justify-content-evenly">
-                <div class="col-3 testimonial">
+        <div class="container-lg py-5">
+            <div class="row justify-content-evenly p-5 p-sm-0">
+                <div class="col-md-3 testimonial">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
                     <div class="rating">
@@ -72,7 +72,7 @@
                     <img src="{% static 'store/images/user-1.png' %}" alt="">
                     <h3>Sean Parker</h3>
                 </div>
-                <div class="col-3 testimonial">
+                <div class="col-md-3 m-5 my-sm-0 testimonial">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
                     <div class="rating">
@@ -85,7 +85,7 @@
                     <img src="{% static 'store/images/user-2.png' %}" alt="">
                     <h3>Sean Parker</h3>
                 </div>
-                <div class="col-3 testimonial">
+                <div class="col-md-3 testimonial">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti rem sint eius dolore a numquam cum nulla, officia quasi iste similique quos expedita inventore maxime debitis suscipit asperiores totam tenetur.</p>
                     <div class="rating">
