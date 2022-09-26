@@ -11,31 +11,38 @@ from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 from .models import Product, ProductVariant, Review, Cart
 from .forms import ReviewForm, CartForm
+from .utils import cart_items, cookie_cart
 
 # Create your views here.
 def home(request):
+    cart_items_total = cart_items(request)
     context = {
         'title': 'Home',
         'products': Product.objects.all(),
-        'latest_products': Product.objects.order_by('-date_added')[:4]
+        'latest_products': Product.objects.order_by('-date_added')[:4],
+        'cart_items_total': cart_items_total
     }
     return render(request, 'store/home.html', context)
 
 
 def products(request):
+    cart_items_total = cart_items(request)
     context = {
-        'products': Product.objects.all()
+        'products': Product.objects.all(),
+        'cart_items_total': cart_items_total,
     }
     return render(request, 'store/products.html', context)
 
 
 def product(request, id):
+    cart_items_total = cart_items(request)
     product = Product.objects.get(pk=id)
     side_images = product.productimage_set.all()[:4]
     context = {
         'product': product,
         'reviews': Review.objects.filter(product=product).order_by('-date_added')[:2],
         'side_images': side_images,
+        'cart_items_total': cart_items_total,
     }
     if request.method == 'POST':
        pass
@@ -48,12 +55,14 @@ def product(request, id):
             context.update({
                 'sizes': sizes,
                 'colors': colors,
-                'variant': variant
+                'variant': variant,
+                'cart_items_total': cart_items_total,
             })   
     return render(request, 'store/product.html', context)
 
 
 def ajax_sizes(request):
+    cart_items_total = cart_items(request)
     if request.method == 'POST':
         body = json.loads(request.body)
         product_id = body['productId']
@@ -62,13 +71,15 @@ def ajax_sizes(request):
         context = {
             'size_id': size_id,
             'product_id': product_id,
-            'colors': colors
+            'colors': colors,
+            'cart_items_total': cart_items_total,
         }
         data = {'rendered_table': render_to_string('store/product_color_variants.html', context=context)}
         return JsonResponse(data)
 
 
 def review_product(request, id):
+    cart_items_total = cart_items(request)
     product = Product.objects.get(id=id)
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -89,6 +100,7 @@ def review_product(request, id):
 
 @login_required
 def cart(request):
+    cart_items_total = cart_items(request)
     cart = Cart.objects.filter(user=request.user)
     sub_total = 0
     tax = 20
@@ -97,12 +109,14 @@ def cart(request):
     context = {
         'cart': cart,
         'sub_total': sub_total,
-        'total': sub_total + tax
+        'total': sub_total + tax,
+        'cart_items_total': cart_items_total,
     }
     return render(request, 'store/cart.html', context)
 
 
 def add_cart(request, id):
+    cart_items_total = cart_items(request)
     url = request.META.get('HTTP_REFERER')
     product = Product.objects.get(id=id)
     if request.method == 'POST':
@@ -118,7 +132,7 @@ def add_cart(request, id):
             quantity = form.cleaned_data['quantity']
             # Check if the Product with the specific variant is already in Cart or not
             if Cart.objects.filter(product_id=id, variant=variant):
-                cart = Cart.objects.get(product_id=id)
+                cart = Cart.objects.filter(product_id=id)
                 cart.quantity += quantity
             else:
                 cart = Cart()
@@ -136,6 +150,7 @@ def add_cart(request, id):
 
 
 def delete_cart(request, id):
+    cart_items_total = cart_items(request)
     Cart.objects.filter(id=id).delete()
     messages.success(request, "The item has been removed from your cart.")
     return redirect('cart')

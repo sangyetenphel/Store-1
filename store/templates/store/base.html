@@ -59,8 +59,19 @@
             {% endif %}  
           </ul>
         </div>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="{% url 'cart' %}"><i class="fas fa-shopping-cart"></i></a>
+        </li>  -->
+
+        <li class="nav-item">
+          <a href="{% url 'cart' %}">
+            <i class="fas fa-shopping-cart">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger fs-6">
+                {{ cart_items_total }}
+              <span class="visually-hidden">cart items</span>
+              </span>
+            </i>
+          </a>
         </li> 
       </div>
     </nav>
