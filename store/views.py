@@ -102,6 +102,7 @@ def review_product(request, id):
 def cart(request):
     cart_items_total = cart_items(request)
     cart = Cart.objects.filter(user=request.user)
+    print(request.user)
     sub_total = 0
     tax = 20
     for order in cart:
@@ -130,16 +131,19 @@ def add_cart(request, id):
         form = CartForm(request.POST)
         if form.is_valid():
             quantity = form.cleaned_data['quantity']
+            print(quantity)
             # Check if the Product with the specific variant is already in Cart or not
             if Cart.objects.filter(product_id=id, variant=variant):
-                cart = Cart.objects.filter(product_id=id)
+                cart = Cart.objects.filter(product_id=id)[0]
+                # print(cart[0])
                 cart.quantity += quantity
+                print(cart)
             else:
                 cart = Cart()
-                cart.user = request.user
                 cart.product = product
                 cart.variant = variant
                 cart.quantity = quantity 
+            cart.user = request.user
             cart.save()
             messages.success(request, "Your product has been added to cart!")
         else:
@@ -147,6 +151,32 @@ def add_cart(request, id):
             return HttpResponse(form.errors)
             
     return HttpResponseRedirect(url)
+
+
+
+# def add_cart(request):
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         product_id = data['productId']
+#         size_id = data['sizeId']
+#         color_id = data['colorId']
+#         quantity = int(data['quantity'])
+#         action = data['action']
+#         if size_id == '':
+#             size_id = None
+#         product_variant = ProductVariant.objects.filter(product_id=product_id, size_id=size_id, color_id=color_id)[0]
+#         cart, created = Cart.objects.get_or_create(user=request.user, product_id=product_id, product_variant = product_variant)
+#         if created:
+#             cart.quantity = quantity
+#         else:
+#             if action == 'add':
+#                 cart.quantity += quantity
+#             else:
+#                 cart.quantity -= quantity            
+#         cart.save()
+#         if cart.quantity == 0:
+#             cart.delete()
+#         return JsonResponse("Item quantity updated", safe=False)
 
 
 def delete_cart(request, id):
